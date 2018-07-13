@@ -1,6 +1,10 @@
-#react-native-experimental-navigation
+# react-native-experimental-navigation
+This repo is the fork from reactXP ExperimentalNavigation, hopefully they will not update again.
+RN compatibility > 0.44
+
+# Note
 ExperimentalNavigation is a cross-platform app navigation framework.
-The code in this repository is based on react-native-experimental-navigation deprecated by facebook. See: https://github.com/facebook/react-native/commit/08dbc43fa64ff1dfc0d364b6cef6262426f76b64 
+The code in this repository is based on react-native-experimental-navigation deprecated by facebook. See: https://github.com/facebook/react-native/commit/08dbc43fa64ff1dfc0d364b6cef6262426f76b64
 *Be aware of facebook patent notice if you are using it.*
 
 ## Why ExperimentalNavigation

@@ -1,11 +1,11 @@
 {
-  "name": "reactxp-experimental-navigation",
-  "version": "1.0.13",
+  "name": "react-native-experimental-navigation",
+  "version": "0.43",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/react-native-experimental-navigation"
+    "url": "https://github.com/vincicat/react-native-experimental-navigation"
   },
-  "description": "ReactNative experimental navigation extracted from react-native repository.",
+  "description": "React Native experimental navigation extracted from react-native repository.",
   "main": "index.js",
   "typings": "typings/reactxp-experimental-navigation.d.ts",
   "scripts": {
