@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "prop-types": "^15.5.10"
-  }
+  },
   "author": "Sergei Dryganets",
   "license": "BSD-3-Clause"
 }
