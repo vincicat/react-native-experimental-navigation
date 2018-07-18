@@ -29,16 +29,21 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const ReactNative = require('react-native');
 
-const {
+import {
   Platform,
   StyleSheet,
   View,
   Text,
-  ViewPropTypes,
-} = ReactNative;
+  ViewPropTypes as NewViewPropTypes,
+} from 'react-native';
 
+var ViewPropTypes;
+if (NewViewPropTypes) {
+  ViewPropTypes = NewViewPropTypes;
+} else {
+  ViewPropTypes = View.propTypes;
+}
 type Props = {
   children: ReactElement;
   style: any;
