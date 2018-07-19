@@ -146,9 +146,31 @@ function NavigationScenesReducer(
   staleScenes.forEach(mergeScene);
   freshScenes.forEach(mergeScene);
 
-  //better scene logic
+  //`isActive` Detection
+  //https://github.com/facebook/react-native/commit/8097fcf4e7a10acc1563698182f5edcbc6596fb1#diff-9e86a03fc80c521dc4dd7999096d634a
+  //and
   //https://github.com/facebook/react-native/commit/229d6d2fd0eb1efdd5257303e2c25493730e0450#diff-9e86a03fc80c521dc4dd7999096d634a
   nextScenes.sort(compareScenes);
+
+  let activeScenesCount = 0;
+  nextScenes.forEach((scene, ii) => {
+    const isActive = !scene.isStale && scene.index === nextState.index;
+    if (isActive !== scene.isActive) {
+      nextScenes[ii] = {
+        ...scene,
+        isActive,
+      };
+    }
+    if (isActive) {
+      activeScenesCount++;
+    }
+  });
+
+  invariant(
+    activeScenesCount === 1,
+    'there should always be only one scene active, not %s.',
+    activeScenesCount,
+  );
 
   if (nextScenes.length !== scenes.length) {
     return nextScenes;
