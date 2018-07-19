@@ -62,6 +62,7 @@ function areScenesShallowEqual(
     one.key === two.key &&
     one.index === two.index &&
     one.isStale === two.isStale &&
+    one.isActive === two.isActive &&
     one.navigationState === two.navigationState &&
     one.navigationState.key === two.navigationState.key
   );
@@ -91,6 +92,7 @@ function NavigationScenesReducer(
     const key = SCENE_KEY_PREFIX + navigationState.key;
     const scene = {
       index,
+      isActive: false,
       isStale: false,
       key,
       navigationState,
@@ -119,6 +121,7 @@ function NavigationScenesReducer(
       }
       staleScenes.set(key, {
         index,
+        isActive: false,
         isStale: true,
         key,
         navigationState,
@@ -143,7 +146,22 @@ function NavigationScenesReducer(
   staleScenes.forEach(mergeScene);
   freshScenes.forEach(mergeScene);
 
-  return nextScenes.sort(compareScenes);
+  //better scene logic
+  //https://github.com/facebook/react-native/commit/229d6d2fd0eb1efdd5257303e2c25493730e0450#diff-9e86a03fc80c521dc4dd7999096d634a
+  nextScenes.sort(compareScenes);
+
+  if (nextScenes.length !== scenes.length) {
+    return nextScenes;
+  }
+
+  if (nextScenes.some(
+    (scene, index) => !areScenesShallowEqual(scenes[index], scene)
+  )) {
+    return nextScenes;
+  }
+
+  // scenes haven't changed.
+  return scenes;
 }
 
 module.exports = NavigationScenesReducer;

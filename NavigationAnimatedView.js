@@ -18,7 +18,7 @@ const NavigationScenesReducer = require('./NavigationScenesReducer');
 const React = require('react');
 const StyleSheet = require('react-native').StyleSheet;
 const View = require('react-native').View;
-
+const invariant = require('fbjs/lib/invariant');
 import type {
   NavigationActionCaller,
   NavigationAnimatedValue,
@@ -205,13 +205,21 @@ class NavigationAnimatedView
         position,
         scenes,
       } = this.state;
+      //cherrypicking https://github.com/facebook/react-native/commit/8097fcf4e7a10acc1563698182f5edcbc6596fb1#diff-9e86a03fc80c521dc4dd7999096d634a
+      const route = navigationState.children[navigationState.index];
+
+      const activeScene = scenes.find(scene => {
+        return (!scene.isStale && scene.navigationState === route) ?
+          scene :
+          undefined;
+      });
 
       return renderOverlay({
         layout: this.state.layout,
         navigationState,
         onNavigate,
         position,
-        scene: scenes[navigationState.index],
+        scene: activeScene,
         scenes,
       });
     }
