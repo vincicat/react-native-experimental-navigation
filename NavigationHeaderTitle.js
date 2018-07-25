@@ -60,7 +60,7 @@ const NavigationHeaderTitle = ({ children, style, textStyle, viewProps }: Props)
   }
   return (
     <View style={[styles.title, style]} {...viewProps}>
-      {children}
+      {text}
     </View>
   );
 }
