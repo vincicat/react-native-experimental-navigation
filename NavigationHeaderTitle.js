@@ -51,11 +51,19 @@ type Props = {
   viewProps: any;
 }
 
-const NavigationHeaderTitle = ({ children, style, textStyle, viewProps }: Props) => (
-  <View style={[ styles.title, style ]} {...viewProps}>
-    <Text style={[ styles.titleText, textStyle ]}>{children}</Text>
-  </View>
-);
+const NavigationHeaderTitle = ({ children, style, textStyle, viewProps }: Props) => {
+  let text;
+  if (React.isValidElement(children)) {
+    text = children
+  } else {
+    text = (<Text style={[styles.titleText, textStyle]}>{children}</Text>);
+  }
+  return (
+    <View style={[styles.title, style]} {...viewProps}>
+      {children}
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   title: {
@@ -75,7 +83,7 @@ const styles = StyleSheet.create({
 });
 
 NavigationHeaderTitle.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.any.isRequired,
   style: ViewPropTypes.style,
   textStyle: Text.propTypes.style
 };
