@@ -207,7 +207,7 @@ class NavigationAnimatedView
       } = this.state;
       //Look like it will work by default transitioner
       //https://github.com/facebook/react-native/commit/229d6d2fd0eb1efdd5257303e2c25493730e0450#diff-2829ac115b33c48fbd4110134089d971
-      console.log("Rendering Overlay", scenes[navigationState.index])
+      //console.log("Rendering Overlay", scenes[navigationState.index])
       return renderOverlay({
         layout: this.state.layout,
         navigationState,
