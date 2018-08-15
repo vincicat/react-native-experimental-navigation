@@ -32,7 +32,10 @@
  */
 'use strict';
 
-const Animated = require('react-native').Animated;
+
+import React from 'react';
+import { StyleSheet, Platform, Animated } from 'react-native';
+
 const NavigationCardStackPanResponder = require('./NavigationCardStackPanResponder');
 const NavigationCardStackStyleInterpolator = require('./NavigationCardStackStyleInterpolator');
 const NavigationContainer = require('./NavigationContainer');
@@ -40,9 +43,6 @@ const NavigationPagerPanResponder = require('./NavigationPagerPanResponder');
 const NavigationPagerStyleInterpolator = require('./NavigationPagerStyleInterpolator');
 const NavigationPointerEventsContainer = require('./NavigationPointerEventsContainer');
 const NavigationPropTypes = require('./NavigationPropTypes');
-const React = require('react');
-const StyleSheet = require('react-native').StyleSheet;
-const View = require('react-native').View;
 
 import type  {
   NavigationPanPanHandlers,
@@ -116,12 +116,17 @@ class NavigationCard extends React.Component<any, Props, any> {
       NavigationCardStackPanResponder.forHorizontal(props) :
       panHandlers;
 
+    const accessibleAttrs = (Platform.OS === 'ios') ? {
+      accessibilityElementsHidden: !props.scene.isActive,
+    } : {
+      importantForAccessibility: props.scene.isActive ? 'yes' : 'no-hide-descendants' ,
+    }
     return (
       <Animated.View
         {...viewPanHandlers}
+        {...accessibleAttrs}
         pointerEvents={pointerEvents}
         ref={this.props.onComponentRef}
-        accessibilityElementsHidden={!props.scene.isActive}
         style={[styles.main, viewStyle]}>
         <SceneView
           sceneRenderer={renderScene}
