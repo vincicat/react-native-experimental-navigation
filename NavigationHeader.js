@@ -137,11 +137,16 @@ class NavigationHeader extends React.PureComponent<DefaultProps, Props, any> {
   }
 
   _renderTitle(props: NavigationSceneRendererProps): ?ReactElement {
-    return this._renderSubView(
+    return Platform.OS === 'ios' ? this._renderSubView(
       props,
       'title',
       this.props.renderTitleComponent,
       NavigationHeaderStyleInterpolator.forCenter,
+    ) : this._renderSubView(
+      props,
+      'leftTitle',
+      this.props.renderTitleComponent,
+      NavigationHeaderStyleInterpolator.forLeft,
     );
   }
 
@@ -185,6 +190,7 @@ class NavigationHeader extends React.PureComponent<DefaultProps, Props, any> {
     }
 
     const pointerEvents = offset !== 0 || isStale ? 'none' : 'box-none';
+ 
     return (
       <Animated.View
         pointerEvents={pointerEvents}
@@ -231,6 +237,15 @@ const styles = StyleSheet.create({
     marginTop: STATUSBAR_HEIGHT,
     position: 'absolute',
     top: 0,
+  },
+  
+  leftTitle: {
+    right: APPBAR_HEIGHT,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    marginTop: STATUSBAR_HEIGHT,
+    position: 'absolute',
   },
 
   right: {
