@@ -122,7 +122,8 @@ class NavigationCard extends React.Component<any, Props, any> {
         pointerEvents={pointerEvents}
         ref={this.props.onComponentRef}
         accessibilityElementsHidden={!props.scene.isActive}
-        style={[styles.main, viewStyle]}>
+        importantForAccessibility={this.props.isActive ? 'yes' : 'no-hide-descendants'}
+        style={[styles.main, viewStyle, { opacity: isActive ? 1 : 0 }]}>
         <SceneView
           sceneRenderer={renderScene}
           sceneRendererProps={props}
